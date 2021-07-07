@@ -1,6 +1,5 @@
 
 # Import Splinter and BeautifulSoup
-from tarfile import HeaderError
 from splinter import Browser
 from bs4 import BeautifulSoup as soup
 from webdriver_manager.chrome import ChromeDriverManager
