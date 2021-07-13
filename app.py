@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, url_for
+from flask import Flask, render_template, redirect
 from flask_pymongo import PyMongo
 import scraping
 
@@ -21,7 +21,7 @@ def index():
 @app.route("/scrape")
 def scrape():
     mars = mongo.db.mars
-    mars_data = scraping.scrape.all() # Referencing the scrape_all function in scraping.py 
+    mars_data = scraping.scrape_all() # Referencing the scrape_all function in scraping.py 
     # Updates our mars database. Syntax: .update(query_parameter, data, options)
     mars.update({}, mars_data, upsert = True) # use {} as empty JSON object, upsert creates a new document if one doesn't already exist
     return redirect('/', code=302)

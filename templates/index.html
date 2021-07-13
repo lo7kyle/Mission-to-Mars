@@ -9,46 +9,89 @@
     rel="stylesheet" 
     href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
     />
-
+    <link rel="stylesheet" href="../static/styles.css">
 </head>
-<body>
-    <div class="container">
-        <!-- Add Jumbotron to Header -->
-        <div class="jumbotron text-center">
-            <h1>Mission to Mars</h1>
-            <!-- Add a button to activate scraping script -->
-            <p><a class = "btn btn-primary btn-lg" href= "/scrape"
-                            role = "button">Scrape New Data</a></p>
+
+
+    <header class="masthead">
+        <div class="container h-100">
+            <!-- Add Jumbotron to Header -->
+            <div class="jumbotron text-center" style="background-color:rgb(129, 125, 116) ;">
+                <h1>Mission to Mars</h1>
+                <!-- Add a button to activate scraping script -->
+                <p><a class = "btn btn-primary btn-lg" href= "/scrape"
+                    style = "background-color:coral; border: gray;"
+                    role = "button">Scrape New Mars Data</a></p>
+            </div>
         </div>
+    </header>
+
+<body>
     <!--Mars News-->
-    <div class = "row" id = "mars-news">
-        <div class= "col-md-12">
-            <div class = "media">
-                <div class = "media-body">
-                    <h2>Latest Mars News</h2>
-                    <h4 class= "media-heading">{{mars.news_title}}</h4>
-                    <p>{{mars.news_paragraph}}</p>
+    <div class="container-fluid"> 
+        <div class = "row" style="background-color: #f1d1c2;" id = "mars-news">
+            <div class= "col-md-6" style="padding: 10%;">
+                <div class = "media">
+                    <div class = "media-body">
+                        <h2>Latest Mars News</h2>
+                        <h3 class= "media-heading">{{mars.news_title}}</h3>
+                        <p>{{mars.news_paragraph}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 text-center">
+                <div class="thumbnail">
+                <img src="../static/mars_robot.jpg" class= "img-fluid width: 100% \9">
+            </div>
+              </div>
+        </div>
+    </div>
+
+    <!--Mars Hemisphere-->
+    <div class="container-fluid"> 
+        <div class="row m-3" id = "mars-hemispheres">
+            <h3 style="font-weight: bold;">Mars Hemispheres</h3>
+            {% for hemisphere in mars.hemispheres %}
+                <div class="col-md-6">
+                    <figure class = "rounded p-3">
+                <div class="thumbnail">
+                    <img 
+                    src="{{hemisphere.img_url | default('static/images/error.png', true)}}" 
+                    class="img-responsive rounded" 
+                    alt= "Responsive image"/>
+                    <figcaption style="font-weight: bold;">{{hemisphere.title}}</figcaption>
+                    </div>
+                    </figure>
+            {% if loop.index == 2 and not loop.last %}
+                </div><div class="row m-3">
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+            <!-- Mars Facts -->
+            <div class="container-fluid"> 
+            <div class = "col-xl-6" style = "background-color:beige; padding: 5%;">
+                <div class = "row" id = "mars-facts"><br>
+                    <h4 style = "font-weight: bold;">Mars Facts</h4>
+                    {{mars.facts | safe}}
                 </div>
             </div>
         </div>
     </div>
+
     <!-- Mars Featured Image -->
-    <div class="row" id = "mars-featured-image">
-        <div class =  "col-md-8">
-            <h2>Featured Mars Image</h2>
-            <img 
-            src="{{mars.featured_image}}" 
-            class="img-responsive" 
-            alt= "Responsive image"/>
-        </div>
-        <!-- Mars Facts -->
-        <div class = "col-md-4">
-            <div class = "row" id = "mars-facts">
-                <h4>Mars Facts</h4>
-                {{mars.facts | safe}}
+    <div class="container-fluid"> 
+        <div class="row" style="background-color: #703f29; color: white;" id = "mars-featured-image">
+            <div class =  "col-md-8" style="padding: 3%;">
+                <h2>Featured Mars Image</h2>
+                <img 
+                src="{{mars.featured_image}}" 
+                class="img-responsive" 
+                alt= "Responsive image"/>
             </div>
+
         </div>
     </div>
-</div>
+
 </body>
 </html>
